@@ -2,12 +2,12 @@
 import os
 
 from tetris.board import Board
+from tetris.piece import Piece
 
 
-def _initialize_game():
+if __name__ == '__main__':
     os.system('clear')
     board = Board()
     board.draw()
-
-if __name__ == '__main__':
-    _initialize_game()
+    board.insert_new_piece(piece=Piece())
+    board.draw()

@@ -18,7 +18,7 @@ class Piece():
         np.array(((True, True), (True, True))) # Block
     )
 
-    def __init__(self, x, y, shape='Random'):
+    def __init__(self, x=None, y=None, shape='Random'):
         if shape == 'Random':
             self._shape = self._SHAPES[random.randint(0, len(self._SHAPES) - 1)]
         else:

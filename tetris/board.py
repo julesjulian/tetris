@@ -14,9 +14,9 @@ class Board():
     _MATTER = '*'
     _VOID = ' '
 
-    def __init__(self):
+    def __init__(self, pieces=[]):
         self._clear()
-        self._pieces = []
+        self._pieces = pieces
 
     def draw(self):
         for piece in self._pieces:
@@ -29,15 +29,22 @@ class Board():
             print(self._MATTER) # right edge
         print(self._MATTER * (self._WIDTH + 2)) # bottom
 
-    def insert_new_piece(self, piece, x_pos):
+    def insert_new_piece(self, piece, x_pos=None):
         """Insert a piece at a specified x-position in the first row."""
         self._clear()
         for piece in self._pieces:
             self._insert_piece(piece=piece, x_pos=piece.x, y_pos=piece.y)
+        if x_pos is None:
+            x_pos = round(self._WIDTH / 2 - 1)
         self._check_validity(piece=piece, x_pos=x_pos, y_pos=0)
         piece.x = x_pos
         piece.y = 0
         self._pieces.append(piece)
+
+    def drop_pieces(self):
+        """Drop all pieces by 1 field."""
+        for piece in self._pieces:
+            piece.y -= 1
 
     def _insert_piece(self, piece, x_pos, y_pos):
         for row in range(len(piece.shape)):

@@ -31,3 +31,11 @@ def test_piece_cannot_be_inserted_where_there_already_is_one(board, piece, x_pos
     board.insert_new_piece(piece=piece, x_pos=x_pos)
     with pytest.raises(ValueError):
         board.insert_new_piece(piece=piece, x_pos=x_pos)
+
+
+@pytest.mark.parametrize('y_pos', (5, 15))
+def test_pieces_are_properly_dropped(board, y_pos):
+    piece = Piece(x=7, y=y_pos)
+    board.insert_new_piece(piece=piece, x_pos=piece.x)
+    board.drop_pieces()
+    piece.y == y_pos + 1
