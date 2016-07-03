@@ -11,7 +11,7 @@ GAME_OVER_MESSAGE = """
 """
 
 
-def _new_piece():
+def _new_piece(board):
     try:
         board.insert_new_piece(new_piece=Piece())
     except ValueError:
@@ -35,11 +35,14 @@ def _new_piece():
             return
 
 
-if __name__ == '__main__':
+def run_from_command_line():
     os.system('clear')
     board = Board(pieces=[])
     while True:
         try:
-            _new_piece()
+            _new_piece(board)
         except ValueError:
             break
+
+if __name__ == '__main__':
+    run_from_command_line()

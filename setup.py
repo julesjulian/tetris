@@ -10,6 +10,11 @@ setup(
     packages=find_packages(exclude=['tests*']),
     include_package_data=True,
     platforms='any',
+    entry_points={
+        'console_scripts': [
+            'play_tetris=tetris.main:run_from_command_line'
+        ]
+    },
     classifiers=[
         'Environment :: Console',
         'Operating System :: OS Independent',
