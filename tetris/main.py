@@ -21,9 +21,13 @@ class Board():
     _HEIGHT = 20
 
     def __init__(self):
-        self._playing_field = np.array([[False] * self._WIDTH] * self._HEIGHT)
+        self._clear()
+        self._pieces = []
 
     def draw(self):
+        for piece in self._pieces:
+            self._insert_piece(piece=piece, x_pos=piece.x, y_pos=piece.y)
+        print('\n') # start in new line
         for row in self._playing_field:
             print(MATTER, end='') # left edge
             for column in row:
@@ -31,22 +35,33 @@ class Board():
             print(MATTER) # right edge
         print(MATTER * (self._WIDTH + 2)) # bottom
 
-    def insert_piece(self, piece, x_pos):
+    def insert_new_piece(self, piece, x_pos):
         """Insert a piece at a specified x-position in the first row."""
-        self._check_validity(piece=piece, x_pos=x_pos)
+        self._clear()
+        for piece in self._pieces:
+            self._insert_piece(piece=piece, x_pos=piece.x, y_pos=piece.y)
+        self._check_validity(piece=piece, x_pos=x_pos, y_pos=0)
+        piece.x = x_pos
+        piece.y = 0
+        self._pieces.append(piece)
+
+    def _insert_piece(self, piece, x_pos, y_pos):
         for row in range(len(piece.shape)):
             for column in range(len(piece.shape[row])):
                 if piece.shape[row, column]:
-                    self._playing_field[row, column + x_pos] = True
+                    self._playing_field[row + y_pos, column + x_pos] = True
 
-    def _check_validity(self, piece, x_pos):
+    def _check_validity(self, piece, x_pos, y_pos):
         if x_pos < 0:
             raise IndexError('Can only insert pieces at positive indices, but received {}.'
                              .format(x_pos))
         for row in range(len(piece.shape)):
             for column in range(len(piece.shape[row])):
-                if piece.shape[row, column] and self._playing_field[row, column + x_pos]:
+                if piece.shape[row, column] and self._playing_field[row + y_pos, column + x_pos]:
                     raise ValueError('Pieces overlapping.')
+
+    def _clear(self):
+        self._playing_field = np.array([[False] * self._WIDTH] * self._HEIGHT)
 
 
 class Piece():
@@ -64,8 +79,10 @@ class Piece():
         np.array(((True, True), (True, True))) # Block
     )
 
-    def __init__(self):
+    def __init__(self, x, y):
         self._shape = self._SHAPES[random.randint(0, len(self._SHAPES) - 1)]
+        self.x = x
+        self.y = y
 
     @property
     def shape(self):

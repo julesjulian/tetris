@@ -10,7 +10,7 @@ def board():
 
 @pytest.fixture
 def piece():
-    return Piece()
+    return Piece(x=5, y=0)
 
 
 def test_board_initialization():
@@ -22,7 +22,7 @@ def test_board_can_be_drawn(board):
 
 
 def test_piece_initialization():
-    Piece()
+    Piece(x=4, y=7)
 
 
 def test_piece_can_be_drawn(piece):
@@ -33,12 +33,25 @@ def test_piece_exposes_shape(piece):
     piece.shape
 
 
-@pytest.mark.parametrize("x_pos", (1, 3, 6, 8))
+@pytest.mark.parametrize('x_pos', (1, 3, 6, 8))
 def test_piece_can_be_inserted_at_valid_position(board, piece, x_pos):
-    board.insert_piece(piece=piece, x_pos=x_pos)
+    board.insert_new_piece(piece=piece, x_pos=x_pos)
+    board.draw()
 
 
-@pytest.mark.parametrize("x_pos", (-1, -10, 23, 66))
+@pytest.mark.parametrize('x_pos', (-1, -10, 23, 66))
 def test_piece_cannot_be_inserted_at_invalid_position(board, piece, x_pos):
     with pytest.raises(Exception):
-        board.insert_piece(piece=piece, x_pos=x_pos)
+        board.insert_new_piece(piece=piece, x_pos=x_pos)
+
+
+@pytest.mark.parametrize('x_pos', (1, 3, 6, 8))
+def test_piece_exposes_x_coordinate(x_pos):
+    piece = Piece(x=x_pos, y=0)
+    assert piece.x == x_pos
+
+
+@pytest.mark.parametrize('y_pos', (1, 3, 6, 8))
+def test_piece_exposes_y_coordinate(y_pos):
+    piece = Piece(x=10, y=y_pos)
+    assert piece.y == y_pos
