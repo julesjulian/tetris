@@ -30,17 +30,17 @@ class Board():
             print(self._MATTER) # right edge
         print(self._MATTER * (self._WIDTH + 2)) # bottom
 
-    def insert_new_piece(self, piece, x_pos=None):
+    def insert_new_piece(self, new_piece, x_pos=None):
         """Insert a piece at a specified x-position in the first row."""
         self._clear()
         for piece in self._pieces:
             self._insert_piece(piece=piece, x_pos=piece.x, y_pos=piece.y)
         if x_pos is None:
             x_pos = round(self._WIDTH / 2 - 1)
-        self._check_validity(piece=piece, x_pos=x_pos, y_pos=0)
-        piece.x = x_pos
-        piece.y = 0
-        self._pieces.append(piece)
+        self._check_validity(piece=new_piece, x_pos=x_pos, y_pos=0)
+        new_piece.x = x_pos
+        new_piece.y = 0
+        self._pieces.append(new_piece)
 
     def drop_pieces(self):
         """Drop all pieces by 1 field."""

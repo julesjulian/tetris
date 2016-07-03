@@ -7,9 +7,9 @@ from tetris.piece import Piece
 
 if __name__ == '__main__':
     os.system('clear')
-    board = Board()
+    board = Board(pieces=[])
     board.draw()
-    board.insert_new_piece(piece=Piece())
+    board.insert_new_piece(new_piece=Piece())
     board.draw()
     board.drop_pieces()
     board.draw()
