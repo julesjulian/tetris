@@ -6,7 +6,7 @@ from tetris.piece import Piece
 
 @pytest.fixture
 def board():
-    return Board()
+    return Board(pieces=[])
 
 
 @pytest.fixture
@@ -33,9 +33,8 @@ def test_piece_cannot_be_inserted_where_there_already_is_one(board, piece, x_pos
         board.insert_new_piece(piece=piece, x_pos=x_pos)
 
 
-@pytest.mark.parametrize('y_pos', (5, 15))
-def test_pieces_are_properly_dropped(board, y_pos):
-    piece = Piece(x=7, y=y_pos)
+def test_pieces_are_properly_dropped(board):
+    piece = Piece(x=7, y=0)
     board.insert_new_piece(piece=piece, x_pos=piece.x)
     board.drop_pieces()
-    piece.y == y_pos + 1
+    assert piece.y == 1

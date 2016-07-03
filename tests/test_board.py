@@ -7,11 +7,11 @@ from tetris.board import Board
 
 @pytest.fixture
 def board():
-    return Board()
+    return Board(pieces=[])
 
 
 def test_board_initialization():
-    Board()
+    Board(pieces=[])
 
 
 def test_board_initialization_with_pieces():

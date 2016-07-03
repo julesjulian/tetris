@@ -14,9 +14,9 @@ class Board():
     _MATTER = '*'
     _VOID = ' '
 
-    def __init__(self, pieces=[]):
-        self._clear()
+    def __init__(self, pieces):
         self._pieces = pieces
+        self._clear()
 
     def draw(self):
         self._clear()
