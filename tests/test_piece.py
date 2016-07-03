@@ -18,7 +18,10 @@ def test_piece_can_be_drawn(piece):
 
 
 def test_piece_exposes_shape(piece):
-    piece.shape == np.array(((False, True), (True, True), (True, False)))
+    np.testing.assert_array_equal(
+        piece.shape,
+        np.array(((False, True), (True, True), (True, False)))
+    )
 
 
 @pytest.mark.parametrize('x_pos', (1, 3, 6, 8))

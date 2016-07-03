@@ -19,6 +19,7 @@ class Board():
         self._pieces = pieces
 
     def draw(self):
+        self._clear()
         for piece in self._pieces:
             self._insert_piece(piece=piece, x_pos=piece.x, y_pos=piece.y)
         print('\n') # start in new line
@@ -44,7 +45,7 @@ class Board():
     def drop_pieces(self):
         """Drop all pieces by 1 field."""
         for piece in self._pieces:
-            piece.y -= 1
+            piece.y += 1
 
     def _insert_piece(self, piece, x_pos, y_pos):
         for row in range(len(piece.shape)):

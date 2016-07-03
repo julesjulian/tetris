@@ -11,3 +11,5 @@ if __name__ == '__main__':
     board.draw()
     board.insert_new_piece(piece=Piece())
     board.draw()
+    board.drop_pieces()
+    board.draw()
