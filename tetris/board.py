@@ -1,3 +1,5 @@
+from random import randint
+
 import numpy as np
 
 
@@ -43,7 +45,7 @@ class Board():
         for piece in self._pieces:
             self._insert_piece(piece=piece, x_pos=piece.x, y_pos=piece.y)
         if x_pos is None:
-            x_pos = round(self._WIDTH / 2 - 1)
+            x_pos = randint(0, self._WIDTH - len(new_piece.shape[0]))
         self._check_validity(piece=new_piece, x_pos=x_pos, y_pos=0)
         new_piece.x = x_pos
         new_piece.y = 0

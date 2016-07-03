@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='tetris',
     version='0.0.1.dev',
-    description='Tetris game for BaseCase application.',
+    description='Tetris game.',
     maintainer='Julian Kuhlmann',
     maintainer_email='jlnkuhlmann@gmail.com',
     install_requires=['numpy'],
