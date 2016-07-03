@@ -30,6 +30,13 @@ class Piece():
     def shape(self):
         return self._shape
 
+    def rotate_clockwise(self):
+        for unused in range(3):
+            self._shape = np.rot90(self._shape)
+
+    def rotate_counterclockwise(self):
+        self._shape = np.rot90(self._shape)
+
     def draw(self):
         MATTER = '*'
         VOID = ' '

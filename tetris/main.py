@@ -9,7 +9,15 @@ def _new_piece():
     board.insert_new_piece(new_piece=Piece())
     board.draw()
     while True:
-        input('Enter command (w, a, s, d): ')
+        command = input('Enter command (w, a, s, d): ')
+        if command == 'a':
+            board.move_left()
+        if command == 'd':
+            board.move_right()
+        if command == 's':
+            board.rotate_clockwise()
+        if command == 'w':
+            board.rotate_counterclockwise()
         if board.can_drop():
             board.drop_piece()
             board.draw()
@@ -20,5 +28,5 @@ def _new_piece():
 if __name__ == '__main__':
     os.system('clear')
     board = Board(pieces=[])
-    _new_piece()
-    _new_piece()
+    while True:
+        _new_piece()

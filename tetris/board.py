@@ -63,6 +63,18 @@ class Board():
             return False
         return True
 
+    def rotate_clockwise(self):
+        self._pieces[-1].rotate_clockwise()
+
+    def rotate_counterclockwise(self):
+        self._pieces[-1].rotate_counterclockwise()
+
+    def move_left(self):
+        self._pieces[-1].x -= 1
+
+    def move_right(self):
+        self._pieces[-1].x += 1
+
     def _insert_piece(self, piece, x_pos, y_pos):
         for row in range(len(piece.shape)):
             for column in range(len(piece.shape[row])):
