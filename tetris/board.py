@@ -42,10 +42,19 @@ class Board():
         new_piece.y = 0
         self._pieces.append(new_piece)
 
-    def drop_pieces(self):
-        """Drop all pieces by 1 field."""
-        for piece in self._pieces:
-            piece.y += 1
+    def drop_piece(self):
+        """Drop last piece by 1 field."""
+        self._pieces[-1].y += 1
+
+    def can_drop(self):
+        self._clear()
+        for piece in self._pieces[:-1]:
+            self._insert_piece(piece, x_pos=piece.x, y_pos=piece.y)
+        try:
+            self._insert_piece(self._pieces[-1], x_pos=self._pieces[-1].x, y_pos=self._pieces[-1].y + 1)
+        except IndexError:
+            return False
+        return True
 
     def _insert_piece(self, piece, x_pos, y_pos):
         for row in range(len(piece.shape)):
