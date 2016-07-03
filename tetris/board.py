@@ -54,6 +54,13 @@ class Board():
             self._insert_piece(self._pieces[-1], x_pos=self._pieces[-1].x, y_pos=self._pieces[-1].y + 1)
         except IndexError:
             return False
+        self._clear()
+        for piece in self._pieces[:-1]:
+            self._insert_piece(piece, x_pos=piece.x, y_pos=piece.y)
+        try:
+            self._check_validity(self._pieces[-1], x_pos=self._pieces[-1].x, y_pos=self._pieces[-1].y + 1)
+        except:
+            return False
         return True
 
     def _insert_piece(self, piece, x_pos, y_pos):
