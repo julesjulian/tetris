@@ -13,10 +13,6 @@ def test_piece_initialization():
     Piece(x=4, y=7, shape=2)
 
 
-def test_piece_can_be_drawn(piece):
-    piece.draw()
-
-
 def test_piece_exposes_shape(piece):
     np.testing.assert_array_equal(
         piece.shape,

@@ -7,7 +7,12 @@ class Piece():
     """
     A Tetris piece.
 
-    The piece can have one of five shapes.
+    The piece can have one of five shapes: Stick, L-shaped, inverse-L, inverse-S, or a Block.
+
+    Parameters:
+    * x: The position on the x-axis.
+    * y: The position on the y-axis.
+    * shape: An integer between 0 and 4 for one of the above-mentioned shapes (default: random).
     """
 
     _SHAPES = (
@@ -28,19 +33,14 @@ class Piece():
 
     @property
     def shape(self):
+        """The shape of the piece, a numpy array."""
         return self._shape
 
     def rotate_clockwise(self):
+        """Rotate the piece 90 degrees clockwise."""
         for unused in range(3):
             self._shape = np.rot90(self._shape)
 
     def rotate_counterclockwise(self):
+        """Rotate the piece 90 degrees counterclockwise."""
         self._shape = np.rot90(self._shape)
-
-    def draw(self):
-        MATTER = '*'
-        VOID = ' '
-        for row in self._shape:
-            for column in row:
-                print(MATTER if column else VOID, end='')
-            print('')

@@ -19,6 +19,7 @@ class Board():
         self._clear()
 
     def draw(self):
+        """Print the current situation to the screen."""
         self._clear()
         for piece in self._pieces:
             self._insert_piece(piece=piece, x_pos=piece.x, y_pos=piece.y)
@@ -31,7 +32,13 @@ class Board():
         print(self._MATTER * (self._WIDTH + 2)) # bottom
 
     def insert_new_piece(self, new_piece, x_pos=None):
-        """Insert a piece at a specified x-position in the first row."""
+        """
+        Insert a piece at a specified x-position in the first row.
+
+        Parameters:
+        * new_piece: the piece
+        * x_pos: the position on the x-axis where the piece should be positioned
+        """
         self._clear()
         for piece in self._pieces:
             self._insert_piece(piece=piece, x_pos=piece.x, y_pos=piece.y)
@@ -47,6 +54,7 @@ class Board():
         self._pieces[-1].y += 1
 
     def can_drop(self):
+        """Whether dropping the last piece by one field is possible in the current situation."""
         self._clear()
         for piece in self._pieces[:-1]:
             self._insert_piece(piece, x_pos=piece.x, y_pos=piece.y)
@@ -64,16 +72,20 @@ class Board():
         return True
 
     def rotate_clockwise(self):
+        """Rotate the last piece clockwise."""
         self._pieces[-1].rotate_clockwise()
 
     def rotate_counterclockwise(self):
+        """Rotate the last piece counterclockwise."""
         self._pieces[-1].rotate_counterclockwise()
 
     def move_left(self):
+        """Move the last piece to the left."""
         if self._can_move_horizontally(move=-1):
             self._pieces[-1].x -= 1
 
     def move_right(self):
+        """Move the last piece to the right."""
         if self._can_move_horizontally(move=+1):
             self._pieces[-1].x += 1
 

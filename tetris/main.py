@@ -36,6 +36,7 @@ def _new_piece(board):
 
 
 def run_from_command_line():
+    """Run the game from the command line."""
     os.system('clear')
     board = Board(pieces=[])
     while True:
