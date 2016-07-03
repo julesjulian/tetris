@@ -4,9 +4,19 @@ import os
 from tetris.board import Board
 from tetris.piece import Piece
 
+GAME_OVER_MESSAGE = """
+#####################
+# G A M E   O V E R #
+#####################
+"""
+
 
 def _new_piece():
-    board.insert_new_piece(new_piece=Piece())
+    try:
+        board.insert_new_piece(new_piece=Piece())
+    except ValueError:
+        print(GAME_OVER_MESSAGE)
+        raise
     board.draw()
     while True:
         command = input('Enter command (w, a, s, d): ')
@@ -29,4 +39,7 @@ if __name__ == '__main__':
     os.system('clear')
     board = Board(pieces=[])
     while True:
-        _new_piece()
+        try:
+            _new_piece()
+        except ValueError:
+            break
