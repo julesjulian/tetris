@@ -2,6 +2,8 @@
 import os
 import random
 
+import numpy as np
+
 
 MATTER = '*'
 VOID = ' '
@@ -18,10 +20,16 @@ class Board():
     _WIDTH = 20
     _HEIGHT = 20
 
+    def __init__(self):
+        self._playing_field = np.array([[False] * self._WIDTH] * self._HEIGHT)
+
     def draw(self):
-        for line in range(self._HEIGHT):
-            print(MATTER + VOID * self._WIDTH + MATTER)
-        print(MATTER * (self._WIDTH + 2))
+        for line in self._playing_field:
+            print(MATTER, end='') # left edge
+            for column in line:
+                print(MATTER if column else VOID, end='')
+            print(MATTER) # right edge
+        print(MATTER * (self._WIDTH + 2)) # bottom
 
 
 class Piece():
@@ -32,11 +40,11 @@ class Piece():
     """
 
     _SHAPES = (
-        ((True,), (True,), (True,), (True,)), # Stick
-        ((True, False), (True, False), (True, True)), # L
-        ((False, True), (False, True), (True, True)), # Inverse L
-        ((False, True), (True, True), (True, False)), # Inverse S
-        ((True, True), (True, True)) # Block
+        np.array(((True,), (True,), (True,), (True,))), # Stick
+        np.array(((True, False), (True, False), (True, True))), # L
+        np.array(((False, True), (False, True), (True, True))), # Inverse L
+        np.array(((False, True), (True, True), (True, False))), # Inverse S
+        np.array(((True, True), (True, True))) # Block
     )
 
     def __init__(self):
