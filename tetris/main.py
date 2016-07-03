@@ -24,12 +24,29 @@ class Board():
         self._playing_field = np.array([[False] * self._WIDTH] * self._HEIGHT)
 
     def draw(self):
-        for line in self._playing_field:
+        for row in self._playing_field:
             print(MATTER, end='') # left edge
-            for column in line:
+            for column in row:
                 print(MATTER if column else VOID, end='')
             print(MATTER) # right edge
         print(MATTER * (self._WIDTH + 2)) # bottom
+
+    def insert_piece(self, piece, x_pos):
+        """Insert a piece at a specified x-position in the first row."""
+        self._check_validity(piece=piece, x_pos=x_pos)
+        for row in range(len(piece.shape)):
+            for column in range(len(piece.shape[row])):
+                if piece.shape[row, column]:
+                    self._playing_field[row, column + x_pos] = True
+
+    def _check_validity(self, piece, x_pos):
+        if x_pos < 0:
+            raise IndexError('Can only insert pieces at positive indices, but received {}.'
+                             .format(x_pos))
+        for row in range(len(piece.shape)):
+            for column in range(len(piece.shape[row])):
+                if piece.shape[row, column] and self._playing_field[row, column + x_pos]:
+                    raise ValueError('Pieces overlapping.')
 
 
 class Piece():
@@ -50,9 +67,13 @@ class Piece():
     def __init__(self):
         self._shape = self._SHAPES[random.randint(0, len(self._SHAPES) - 1)]
 
+    @property
+    def shape(self):
+        return self._shape
+
     def draw(self):
-        for line in self._shape:
-            for column in line:
+        for row in self._shape:
+            for column in row:
                 print(MATTER if column else VOID, end='')
             print('')
 
