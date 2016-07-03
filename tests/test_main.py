@@ -1,4 +1,5 @@
 import pytest
+import numpy as np
 
 from tetris.main import Board, Piece
 
@@ -10,7 +11,7 @@ def board():
 
 @pytest.fixture
 def piece():
-    return Piece(x=5, y=0)
+    return Piece(x=5, y=0, shape=3)
 
 
 def test_board_initialization():
@@ -22,7 +23,7 @@ def test_board_can_be_drawn(board):
 
 
 def test_piece_initialization():
-    Piece(x=4, y=7)
+    Piece(x=4, y=7, shape=2)
 
 
 def test_piece_can_be_drawn(piece):
@@ -30,7 +31,7 @@ def test_piece_can_be_drawn(piece):
 
 
 def test_piece_exposes_shape(piece):
-    piece.shape
+    piece.shape == np.array(((False, True), (True, True), (True, False)))
 
 
 @pytest.mark.parametrize('x_pos', (1, 3, 6, 8))
@@ -55,3 +56,10 @@ def test_piece_exposes_x_coordinate(x_pos):
 def test_piece_exposes_y_coordinate(y_pos):
     piece = Piece(x=10, y=y_pos)
     assert piece.y == y_pos
+
+
+@pytest.mark.parametrize('x_pos', (5, 15))
+def test_piece_cannot_be_inserted_where_there_already_is_one(board, piece, x_pos):
+    board.insert_new_piece(piece=piece, x_pos=x_pos)
+    with pytest.raises(ValueError):
+        board.insert_new_piece(piece=piece, x_pos=x_pos)
